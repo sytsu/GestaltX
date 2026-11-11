@@ -1,0 +1,100 @@
+name: GestaltX KR release
+
+# Rebuilds GestaltX whenever huamidev/GestaltX publishes a new release:
+# the commits on the kr-patch branch are cherry-picked onto the upstream
+# release tag, then built and published here as <tag>-kr.
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Rebuild even if this upstream release was already built
+        type: boolean
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gestaltx-kr-release
+  cancel-in-progress: false
+
+env:
+  UPSTREAM_REPO: huamidev/GestaltX
+  PATCH_BRANCH: kr-patch
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.compare.outputs.build }}
+      tag: ${{ steps.compare.outputs.tag }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Compare the latest upstream release with ours
+        id: compare
+        run: |
+          tag=$(gh release view -R "$UPSTREAM_REPO" --json tagName -q .tagName)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          if [ "${{ inputs.force }}" = "true" ] || ! gh release view "$tag-kr" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "upstream $tag: building"
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "upstream $tag: already built"
+            echo "build=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: check
+    if: needs.check.outputs.build == 'true'
+    runs-on: xcode-27
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ needs.check.outputs.tag }}
+    steps:
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ env.PATCH_BRANCH }}
+          fetch-depth: 0
+
+      - name: Apply the KR patch onto the upstream release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream "https://github.com/$UPSTREAM_REPO.git"
+          git fetch --quiet --tags upstream main
+          base=$(git merge-base HEAD upstream/main)
+          git checkout --quiet --detach "refs/tags/$TAG"
+          if ! git cherry-pick "$base..origin/$PATCH_BRANCH"; then
+            git cherry-pick --abort
+            echo "::error::The KR patch no longer applies cleanly to $TAG. Rebase the $PATCH_BRANCH branch by hand."
+            exit 1
+          fi
+          git log --oneline -5
+
+      - name: Build IPA
+        id: build
+        run: |
+          export BUILD_DATE="$(date -u +%F)"
+          .github/scripts/build-ipa.sh "$RUNNER_TEMP/ipa"
+          ipa=$(ls "$RUNNER_TEMP"/ipa/GestaltX_*.ipa)
+          mv "$ipa" "${ipa%.ipa}-KR.ipa"
+          echo "kr_ipa=${ipa%.ipa}-KR.ipa" >> "$GITHUB_OUTPUT"
+
+      - name: Publish the release
+        run: |
+          notes=$(printf 'upstream: %s\n\nGestaltX %s from %s with South Korea (KH) added to the region code options.\n\nUnsigned. Sideload it over the existing GestaltX to update in place.\n' \
+            "$TAG" "$TAG" "$UPSTREAM_REPO")
+          gh release delete "$TAG-kr" -R "$GITHUB_REPOSITORY" --cleanup-tag --yes 2>/dev/null || true
+          gh release create "$TAG-kr" "${{ steps.build.outputs.kr_ipa }}" -R "$GITHUB_REPOSITORY" \
+            --target main --title "GestaltX $TAG (KR)" --notes "$notes"
