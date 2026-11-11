@@ -326,6 +326,7 @@ Restore Imported Plist	恢复导入的 plist
 The current device file will be backed up before restoring. Restart the device afterward.	恢复前会备份当前设备文件，完成后请重启设备。
 Share this device's plist to GestaltX to edit its keys and values or restore a verified backup. Export a copy from GestaltX first to keep a device-bound proof.	现在可将本机 plist 分享到 GestaltX，核验后导入、增删改键值并恢复。建议先从 GestaltX 导出一份带本机校验凭证的备份。
 Canada	加拿大
+South Korea	韩国
 Model Number	型号号码
 A device restart may be required after changing the model number.	修改型号号码后可能需要重启设备。
 Listed values apply to iPhone Air, iPhone 18 Pro and iPhone 18 Pro Max only. Choosing a model number that does not match your hardware can make verification tools report a mismatch.	以下号码仅适用于 iPhone Air、iPhone 18 Pro 和 iPhone 18 Pro Max。选择与硬件不符的号码，可能导致验机工具报告不匹配。

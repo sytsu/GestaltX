@@ -312,6 +312,7 @@
   "The current device file will be backed up before restoring. Restart the device afterward.": "Перед восстановлением будет создана резервная копия текущего файла устройства. Затем перезагрузите устройство.",
   "Share this device's plist to GestaltX to edit its keys and values or restore a verified backup. Export a copy from GestaltX first to keep a device-bound proof.": "Отправьте plist этого устройства в GestaltX для проверки, импорта, добавления, изменения и удаления ключей и восстановления копии. Сначала рекомендуется экспортировать копию из GestaltX с подтверждением для этого устройства.",
   "Canada": "Канада",
+  "South Korea": "Южная Корея",
   "Model Number": "Номер модели",
   "A device restart may be required after changing the model number.": "После изменения номера модели может потребоваться перезагрузка устройства.",
   "Listed values apply to iPhone Air, iPhone 18 Pro and iPhone 18 Pro Max only. Choosing a model number that does not match your hardware can make verification tools report a mismatch.": "Эти номера предназначены только для iPhone Air, iPhone 18 Pro и iPhone 18 Pro Max. Номер, не соответствующий оборудованию, может вызвать предупреждение в программах проверки.",

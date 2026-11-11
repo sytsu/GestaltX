@@ -312,6 +312,7 @@
   "The current device file will be backed up before restoring. Restart the device afterward.": "복원을 시작하기 전 만약을 대비해 현재 기기 파일이 백업됩니다. 복원이 완료되면 반드시 기기를 재시동하십시오.",
   "Share this device's plist to GestaltX to edit its keys and values or restore a verified backup. Export a copy from GestaltX first to keep a device-bound proof.": "이 기기의 plist를 GestaltX 앱에 공유하면 내부 키와 값을 편집하거나, 이전에 검증해 둔 백업 파일을 시스템에 복원할 수 있습니다. 기기 고유 증명을 안전하게 유지하려면 편집 전 먼저 GestaltX에서 원본 사본을 내보내 두는 것이 좋습니다.",
   "Canada": "캐나다",
+  "South Korea": "대한민국",
   "Model Number": "모델 번호",
   "A device restart may be required after changing the model number.": "모델 번호를 변경한 후 시스템에 완전히 반영되려면 기기를 재시동해야 할 수 있습니다.",
   "A3472 — 18 Pro · United States": "A3472 — 18 Pro · 미국",

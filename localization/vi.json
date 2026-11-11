@@ -312,6 +312,7 @@
   "The current device file will be backed up before restoring. Restart the device afterward.": "Tệp hiện tại trên thiết bị sẽ được sao lưu trước khi khôi phục. Sau đó hãy khởi động lại thiết bị.",
   "Share this device's plist to GestaltX to edit its keys and values or restore a verified backup. Export a copy from GestaltX first to keep a device-bound proof.": "Chia sẻ plist của thiết bị này đến GestaltX để nhập sau khi xác minh, thêm, sửa, xóa khóa và giá trị hoặc khôi phục bản sao lưu. Trước tiên nên xuất bản sao từ GestaltX kèm bằng chứng gắn với thiết bị.",
   "Canada": "Canada",
+  "South Korea": "Hàn Quốc",
   "Model Number": "Số kiểu máy",
   "A device restart may be required after changing the model number.": "Có thể cần khởi động lại thiết bị sau khi đổi số kiểu máy.",
   "Listed values apply to iPhone Air, iPhone 18 Pro and iPhone 18 Pro Max only. Choosing a model number that does not match your hardware can make verification tools report a mismatch.": "Các số này chỉ dành cho iPhone Air, iPhone 18 Pro và iPhone 18 Pro Max. Chọn số không khớp phần cứng có thể khiến công cụ kiểm tra báo không khớp.",

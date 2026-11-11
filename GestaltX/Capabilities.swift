@@ -139,7 +139,8 @@ struct RegionPreset: Identifiable {
         .init(id: "CN", title: "China (Mainland)", code: "CH", info: "CH/A"),
         .init(id: "TW", title: "Taiwan", code: "TA", info: "TA/A"),
         .init(id: "UK", title: "United Kingdom", code: "B", info: "B/A"),
-        .init(id: "CA", title: "Canada", code: "C", info: "C/A")
+        .init(id: "CA", title: "Canada", code: "C", info: "C/A"),
+        .init(id: "KR", title: "South Korea", code: "KH", info: "KH/A")
     ]
 }
 

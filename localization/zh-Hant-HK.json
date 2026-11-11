@@ -312,6 +312,7 @@
   "The current device file will be backed up before restoring. Restart the device afterward.": "還原前會備份目前的裝置檔案，完成後請重新啟動裝置。",
   "Share this device's plist to GestaltX to edit its keys and values or restore a verified backup. Export a copy from GestaltX first to keep a device-bound proof.": "現在可將本機 plist 分享到 GestaltX，核驗後匯入、新增、刪除或修改鍵值並還原。建議先從 GestaltX 匯出一份附有本機驗證憑證的備份。",
   "Canada": "加拿大",
+  "South Korea": "南韓",
   "Model Number": "型號號碼",
   "A device restart may be required after changing the model number.": "修改型號號碼後可能需要重新啟動裝置。",
   "Listed values apply to iPhone Air, iPhone 18 Pro and iPhone 18 Pro Max only. Choosing a model number that does not match your hardware can make verification tools report a mismatch.": "以下號碼僅適用於 iPhone Air、iPhone 18 Pro 和 iPhone 18 Pro Max。選擇與硬件不符的號碼，可能導致驗機工具顯示不符。",
