@@ -82,6 +82,27 @@ jobs:
           fi
           git log --oneline -5
 
+      # Upstream's generator needs every string in every localization/*.json. The patch
+      # only carries the locales that existed when it was written, so give "South Korea"
+      # to any locale upstream has added since (in English if we have no translation).
+      - name: Translate the patch's string for locales added upstream
+        run: |
+          python3 - <<'EOF'
+          import json, pathlib
+          names = {
+              "ja": "韓国", "fr": "Corée du Sud", "de": "Südkorea", "it": "Corea del Sud",
+              "pt": "Coreia do Sul", "pt-BR": "Coreia do Sul", "tr": "Güney Kore",
+              "ar": "كوريا الجنوبية", "th": "เกาหลีใต้", "id": "Korea Selatan",
+              "uk": "Південна Корея", "pl": "Korea Południowa", "nl": "Zuid-Korea",
+          }
+          for path in sorted(pathlib.Path("localization").glob("*.json")):
+              strings = json.loads(path.read_text(encoding="utf-8"))
+              if "South Korea" not in strings:
+                  strings["South Korea"] = names.get(path.stem, "South Korea")
+                  path.write_text(json.dumps(strings, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+                  print(f"{path.name}: South Korea -> {strings['South Korea']}")
+          EOF
+
       - name: Build IPA
         id: build
         run: |
