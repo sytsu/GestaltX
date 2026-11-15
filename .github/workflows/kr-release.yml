@@ -103,6 +103,16 @@ jobs:
                   print(f"{path.name}: South Korea -> {strings['South Korea']}")
           EOF
 
+      # Since v1.0.8 the app links a Rust library that is not checked in. This mirrors
+      # the step in upstream's own build workflow; older releases have no such folder.
+      - name: Build the native device console
+        run: |
+          [ -f Native/DeviceConsole/build-xcframework.sh ] || exit 0
+          rustup target add aarch64-apple-ios aarch64-apple-ios-sim
+          command -v nasm >/dev/null || brew install nasm
+          cd Native/DeviceConsole
+          ./build-xcframework.sh
+
       - name: Build IPA
         id: build
         run: |
